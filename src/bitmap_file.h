@@ -23,6 +23,7 @@ namespace Bitmap
         void Rename(std::string filename);
         bool Open(std::string filename);
         bool IsValid();
+        void SetValid();
         std::string Filename();
 
     private:

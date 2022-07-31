@@ -60,7 +60,10 @@ bool Bitmap::File::Open(std::string filename)
     if (openedSuccessfully)
         openedSuccessfully = ReadFile(fileHandle, (LPSTR)&bitmapInfo.bmiHeader, sizeof(BITMAPINFOHEADER), &bytesRead, NULL);
     if (openedSuccessfully)
+    {
+        Bitmap::File::bitmapData.resize(bitmapFileHeader.bfSize - bitmapFileHeader.bfOffBits );
         openedSuccessfully = ReadFile(fileHandle, (LPSTR)&bitmapData[0], bitmapFileHeader.bfSize - bitmapFileHeader.bfOffBits, &bytesRead, NULL);
+    }
     if (openedSuccessfully)
         openedSuccessfully = CloseHandle(fileHandle);
     if (openedSuccessfully)
@@ -81,4 +84,9 @@ std::string Bitmap::File::Filename()
 bool Bitmap::File::IsValid()
 {
     return Bitmap::File::isValid;
+}
+
+void Bitmap::File::SetValid()
+{
+    Bitmap::File::isValid = true;
 }
